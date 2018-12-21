@@ -1,2 +1,4 @@
 mykey
 terraform.tfvars
+.terraform
+.idea
