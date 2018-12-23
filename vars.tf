@@ -19,3 +19,5 @@ variable "AMIS" {
     us-east-2 = "ami-0cf8cc36b8c81c6de"
   }
 }
+
+variable "RDS_PASSWORD" { }

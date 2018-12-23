@@ -1,3 +1,4 @@
+#Security group to allow ssh traffic on port 22
 resource "aws_security_group" "allow-ssh-2" {
   vpc_id = "${aws_vpc.main.id}"
   name = "allow-ssh"
@@ -17,5 +18,29 @@ resource "aws_security_group" "allow-ssh-2" {
   }
 tags {
     Name = "allow-ssh-2"
+  }
+}
+
+#Security group for MariaDB
+
+resource "aws_security_group" "allow-mariadb" {
+  vpc_id = "${aws_vpc.main.id}"
+  name = "allow-mariadb"
+  description = "allow-mariadb"
+  ingress {
+      from_port = 3306
+      to_port = 3306
+      protocol = "tcp"
+      security_groups = ["${aws_security_group.allow-ssh-2.id}"]              # allowing access from our example instance
+  }
+  egress {
+      from_port = 0
+      to_port = 0
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+      self = true
+  }
+  tags {
+    Name = "allow-mariadb"
   }
 }
