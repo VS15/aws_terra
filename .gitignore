@@ -1,4 +1,5 @@
 mykey
+mykey.pub
 terraform.tfvars
 .terraform
 .idea
