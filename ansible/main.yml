@@ -1,15 +1,9 @@
 ---
-- name: Ansible playbook to provision SDK Ubuntu jenkins slaves
+- name: Ansible playbook to provision components
   hosts: all #"{{ dynamic_group | default('ubuntu-sdk-slave-servers') }}"
   become: yes
-  gather_facts: yes
+  gather_facts: no
 
-
-- name: Deploy Main Components for SDK Ubuntu slave
-  apt: name={{ item }} state=present force=yes update_cache=yes
-  with_items:
-    - ansible
-    - apt-transport-https
-    - bc
-    - nginx
+  roles:
+    - { role: envi_setup, tags: [ 'envi_setup' ] }
 

@@ -1,0 +1,14 @@
+---
+- name: Update OS
+  apt: update_cache=yes
+  tags: update_os
+
+- name: Install System components
+  apt: name={{ item }} state=latest
+  with_items:
+    - nginx
+    - dnsutils
+    - vim
+    - curl
+    - nfs-common
+  tags: install_components

@@ -3,8 +3,8 @@
     "aws_access_key": "",
     "aws_secret_key": ""
   },
-
-    "builders": [{
+  "builders": [
+    {
       "type": "amazon-ebs",
       "ssh_pty": true,
       "access_key": "{{user `aws_access_key`}}",
@@ -13,11 +13,20 @@
       "instance_type": "t2.micro",
       "source_ami": "ami-0cf8cc36b8c81c6de",
       "ssh_username": "ubuntu",
-      "ami_name": "Packer-ubuntu {{`timestamp`}}"
-    }],
-  
-    "provisioners": [{
+      "ami_name": "packer-ubuntu-{{timestamp}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "../scripts/deploy.sh"
+    },
+
+    {
       "type": "ansible",
       "playbook_file": "../ansible/main.yml"
-    }]
-  }
+    }
+
+  ]
+}
