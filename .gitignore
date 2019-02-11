@@ -1,5 +1,7 @@
 mykey
 mykey.pub
 terraform.tfvars
+terraform.tfstate.backup
+terraform.tfstate
 .terraform
 .idea
